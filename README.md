@@ -11,7 +11,10 @@ methods to cluster microbiome data, both for counts and for relative abundance d
   2. Navigate to where you want to save this repository (eg: `cd ~/path/to/binaries/`)
   3. `git clone https://github.com/g-antonello/microbiome_clustering`
  
-
+## Graphical interface
+  
+  1. Navigate to the github page
+  2. Download the repository with the button on top right near   3. unzip
 
 # Dirichlet Multinomial (on COUNTS data)
 
