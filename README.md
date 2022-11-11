@@ -11,7 +11,7 @@ This is based on the following [paper](https://journals.plos.org/plosone/article
   3. Makes some figures based on the number of CSTs chosen (still WIP)
   
  An example run would be:
- 
+ **STEP 1** 
  ```
 Rscript DirichletMultinomial/DMM_CST_step1-fitting.R \
       -i input_phyloseq \
@@ -25,9 +25,10 @@ Rscript DirichletMultinomial/DMM_CST_step1-fitting.R \
  ```
 NB: except the I/O parameters, all the values put here are arbitrary, default values. After this analysis has finished, you can run the second step 
 
+**STEP 2**
 ```
 Rscript DirichletMultinomial/DMM_CST_step2-BestFitCSTExtraction.R \
-      -i output_directory/DMM_output_data/DMM_CST_Robj.Rda \
+      -i output_directory/DMM_output_data/01_DMM_CST_Robj.Rda \
       -n 5 \ 
 ```
 
@@ -36,12 +37,16 @@ This `-n` parameter can be derived or is arbitrarily chosen by the script, see `
 After `step 2`, you can use the `output_directory/DMM_output_data/06_CSTs_ready_for_metadata.csv` file to add to your metadata. Since you will need to install my  `gautils2` package, you will probably do something like:
 
 ```
+# devtools::install_github("g-antonello/gautils2")
+library(gautils2)
+
 phyloseq_no_CST = readRDS("phyloseq_object.RDS")
+
 cst_info = read.csv("output_directory/DMM_output_data/06_CSTs_ready_for_metadata.csv", header = TRUE)
+
 phyloseq_with_CST = gautils2::phy_add_metadata_variables(physeq = phyloseq_no_CST,
                                                           df = cst_info,
-                                                          by = "IDs") # make sure you merge using the correct IDS!
-                                                          
+                                                          by = "IDs") # make sure you merge using the correct IDS!                      
 ```
 
 # Latent Dirichlet Allocation
