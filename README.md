@@ -73,4 +73,8 @@ phyloseq_with_CST <- gautils2::phy_add_metadata_variables(physeq = phyloseq_no_C
 
 # Latent Dirichlet Allocation
 
-One of the new kids in the block by Susan and her group, see this [link](https://academic.oup.com/biostatistics/article/20/4/599/5032578) for the statistical underpinning.
+One of the new kids in the block by Susan and her group, see this [link](https://academic.oup.com/biostatistics/article/20/4/599/5032578) for the statistical underpinning. Actually, there are three different types of Dirichlet modeling options in their framework:
+
+    - Latent Dirichlet Allocation
+    - Dynamic Unigram Modeling
+    - 
