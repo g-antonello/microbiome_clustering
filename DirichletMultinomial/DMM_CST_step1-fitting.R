@@ -10,7 +10,8 @@ option_list = list(
   make_option(c("-c", "--communities"), type="integer", default=10, help = "The total amount of communities you want to try to model"),
   make_option(c("-r", "--min_reads_per_sample"), type="integer", default=1000, help = "The total amount of communities you want to try to model"),
   make_option(c("-t", "--taxonomic_level"), type="character", default="ASV", help = "The total amount of communities you want to try to model"),
-  make_option(c("-v", "--verbose"), type="logical", default="TRUE", help = "The total amount of communities you want to try to model")
+  make_option(c("-v", "--verbose"), type="logical", default="TRUE", help = "The total amount of communities you want to try to model"),
+  make_option(c("-r", "threads"), type="numeric", default=1, help = "Number of maximum threads one can use for this analysis. Default is 1")
 )
 
 opt_parser = OptionParser(option_list=option_list)
@@ -78,8 +79,8 @@ if(opts_args$verbose){
   message("\nFitting the DMM models\n")
 }
 
-fit <- mclapply(X = 1:10, FUN = dmn, count=chrismb_asv_4_CST,mc.cores = data.table::getDTthreads()*2, verbose=TRUE)
-  
+fit <- mclapply(X = 1:10, FUN = dmn, count=chrismb_asv_4_CST, mc.cores = opts_args$threads, verbose=TRUE)
+
 ### The return value can be queried for measures of fit (Laplace, AIC, BIC); these are plotted for different k
 ### plot laplace approximation (i.e. model fit) by number of community types
 # put laplace values in a vector - you can use other measures of fit such as AIC or BIC
