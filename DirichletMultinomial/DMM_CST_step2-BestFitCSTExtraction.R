@@ -19,18 +19,9 @@ load(opts_args_st2$input)
 
 
 if(is.na(opts_args_st2$number_components_bestFit)){
- 
-  # This is totally arbitrary. I made the empirical choice that if the difference in laplace values is not higher than half of the previous value, 
-  # then that would be the number of communities. in CHRISMB case, I visually chose 6, from the laplace plot, but my "algorithm" chose 5.
+  # if the number of clusters is not specified, use the BIC Goodness of Fit method, which is arguably better at resolving the number of clusters in a DMM fit
+ opts_args_st2$number_components_bestFit <- match(min(sapply(fit, DirichletMultinomial::BIC)), sapply(fit, DirichletMultinomial::BIC))
   
-opts_args_st2 <-  cbind(sapply(fit, laplace) %>% diff(), 
-        c(0,sapply(fit, laplace) %>% diff()/2)[1:(length(sapply(fit, laplace)) -1)]) %>%
-  abs() %>% 
-  as.data.frame() %>% 
-  mutate(turning_point = ifelse(V1 < V2, TRUE, FALSE)) %>% 
-  .$turning_point %>% 
-  which() %>% 
-  min()
 }
 
 library(lattice)
